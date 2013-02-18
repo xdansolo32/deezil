@@ -12,7 +12,9 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
-    views: ['Main','Signup'],
+    controllers: ['Diesel.controller.Login'],
+
+    views: ['Signup'],
 
     icon: {
         '57': 'resources/icons/Icon.png',
@@ -37,7 +39,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('Diesel.view.Main'));
+        Ext.Viewport.add(Ext.create('Diesel.view.Signup'));
     },
 
     onUpdated: function() {

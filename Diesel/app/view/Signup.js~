@@ -1,50 +1,45 @@
-Ext.application({
-    name: 'Sencha',
+Ext.define('Diesel.view.Signup', {
+    extend: 'Ext.tab.Panel',
+    xtype: 'main',
 
-    launch: function() {
-        Ext.create("Ext.tab.Panel", {
-            fullscreen: true,
-            tabBarPosition: 'bottom',
+    config: {
 
-            items: [
-                {
-                    title: 'Contact',
-                    iconCls: 'user',
-                    xtype: 'formpanel',
-                    url: 'contact.php',
-                    layout: 'vbox',
+        tabBarPosition: 'bottom',
 
-                    items: [
-                        {
-                            xtype: 'fieldset',
-                            title: 'Contact Us',
-                            instructions: '(email address is optional)',
-                            items: [
-                                {
-                                    xtype: 'textfield',
-                                    label: 'Name'
-                                },
-                                {
-                                    xtype: 'emailfield',
-                                    label: 'Email'
-                                },
-                                {
-                                    xtype: 'textareafield',
-                                    label: 'Message'
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'button',
-                            text: 'Send',
-                            ui: 'confirm',
-                            handler: function() {
-                                this.up('formpanel').submit();
+        items: [
+            {
+                id: 'loginForm',
+                title: 'Login',
+                iconCls: 'home',
+                xtype: 'formpanel',
+                url: 'contact.php',
+                layout: 'vbox',
+
+                items: [
+                   {
+                        xtype: 'fieldset',
+                        title: 'Login',
+                        items: [
+                            {
+                                xtype: 'emailfield',
+                                label: 'Email'
+                            },
+                            {
+                                xtype: 'passwordfield',
+                                label: 'Password'
                             }
+                        ]
+                   },
+                   {
+                        xtype: 'button',
+                        text: 'Send',
+                        ui: 'confirm',
+                        handler: function() {
+			   this.up('formpanel').submit();
                         }
-                    ]
-                }
-            ]
-        });
+                    }
+                ]
+            }
+        ]
     }
 });

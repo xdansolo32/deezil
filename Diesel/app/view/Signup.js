@@ -1,13 +1,16 @@
 Ext.define('Diesel.view.Signup', {
     extend: 'Ext.tab.Panel',
     xtype: 'main',
+
     config: {
+
         tabBarPosition: 'bottom',
 
         items: [
             {
-                title: 'Contact',
-                iconCls: 'user',
+                id: 'loginForm',
+                title: 'Login',
+                iconCls: 'home',
                 xtype: 'formpanel',
                 url: 'contact.php',
                 layout: 'vbox',
@@ -15,20 +18,15 @@ Ext.define('Diesel.view.Signup', {
                 items: [
                    {
                         xtype: 'fieldset',
-                        title: 'Contact Us',
-                        instructions: '(email address is optional)',
+                        title: 'Login',
                         items: [
-                            {
-                                xtype: 'textfield',
-                                label: 'Name'
-                            },
                             {
                                 xtype: 'emailfield',
                                 label: 'Email'
                             },
                             {
-                                xtype: 'textareafield',
-                                label: 'Message'
+                                xtype: 'passwordfield',
+                                label: 'Password'
                             }
                         ]
                    },
@@ -37,7 +35,7 @@ Ext.define('Diesel.view.Signup', {
                         text: 'Send',
                         ui: 'confirm',
                         handler: function() {
-                            this.up('formpanel').submit();
+			   this.up('formpanel').submit();
                         }
                     }
                 ]
