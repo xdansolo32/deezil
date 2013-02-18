@@ -5,7 +5,8 @@ var util    = require('util');
 // create an express webserver
 var app = express.createServer(
   express.logger(),
-  express.static(__dirname + '/public'),
+  //express.static(__dirname + '/public'),
+  express.static('./Diesel'),
   express.bodyParser(),
   express.cookieParser(),
   // set this to a secret value to encrypt session cookies
