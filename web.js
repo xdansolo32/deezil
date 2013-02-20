@@ -21,7 +21,7 @@ var userSchema = mongoose.Schema({
 	email: String,
 	age: Number,
 	birthday: Date,
-	isFag: Boolean
+	likesGirls: Boolean
 });
 
 var transactionSchema = mongoose.Schema({
@@ -36,16 +36,16 @@ userSchema.methods.displayStats = function() {
 	email = this.email,
 	age = this.age,
 	birthday = this.birthday,
-	amFag = this.isFag;
+	likesGirls = this.likesGirls;
 	console.log("THIS ARE AM THE MONGOOZ DATABASE YOOZIR SKEEMA TESTING AREA!!!! \n")
 	console.log("HI, MY NAME IS " + fn + " " + ln);
 	console.log("I am " + age + ", and my birthday is " + birthday);
-	console.log("If you are wondering and a guy, my interest in you is: " + amFag);
+	console.log("If you are wondering and are a girl, my interest in you is: " + likesGirls);
 }
 
 var User = mongoose.model('User', userSchema);
 var daniel = new User({firstName: 'daniel', lastName: 'sun', email:'daniel@sun.com',
-	age: 28, birthday: new Date(2013, 02, 20, 1, 1, 1, 1), isFag: false});
+	age: 28, birthday: new Date(2013, 02, 20, 1, 1, 1, 1), likesGirls: true});
 	
 daniel.displayStats();	
 
