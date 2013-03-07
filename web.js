@@ -2,60 +2,9 @@ var async   = require('async');
 var express = require('express');
 var util    = require('util');
 
-//mongoose and schema setup, can delete later if we roll something else
-// check console for user object identification test when running web.js
-var mongoose = require('mongoose');
-
-var MONGO_DB = process.env.MONGO_DB || 'mongodb://localhost/test';
-mongoose.connect(MONGO_DB);
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'FUCKING connection error:'));
-db.once('open', function callback () {
-  console.log('FUCK YEAH!!!');
-});
-
-var userSchema = mongoose.Schema({
-	firstName: String,
-	lastName: String,
-	email: String,
-	age: Number,
-	birthday: Date,
-	likesGirls: Boolean
-});
-
-var transactionSchema = mongoose.Schema({
-	//hostHash
-	//arrayOfLenders
-	maturityDate: Date
-})
-
-userSchema.methods.displayStats = function() {
-	var fn = this.firstName,
-	ln = this.lastName,
-	email = this.email,
-	age = this.age,
-	birthday = this.birthday,
-	likesGirls = this.likesGirls;
-	console.log("THIS ARE AM THE MONGOOZ DATABASE YOOZIR SKEEMA TESTING AREA!!!! \n")
-	console.log("HI, MY NAME IS " + fn + " " + ln);
-	console.log("I am " + age + ", and my birthday is " + birthday);
-	console.log("If you are wondering and are a girl, my interest in you is: " + likesGirls);
-}
-
-var User = mongoose.model('User', userSchema);
-var daniel = new User({firstName: 'daniel', lastName: 'sun', email:'daniel@sun.com',
-	age: 28, birthday: new Date(2013, 02, 20, 1, 1, 1, 1), likesGirls: true});
-	
-daniel.displayStats();	
-
-
-
 // create an express webserver
 var app = express.createServer(
   express.logger(),
-  //express.static(__dirname + '/public'),
-  express.static('./Diesel'),
   express.bodyParser(),
   express.cookieParser(),
   // set this to a secret value to encrypt session cookies
@@ -63,9 +12,12 @@ var app = express.createServer(
   require('faceplate').middleware({
     app_id: process.env.FACEBOOK_APP_ID,
     secret: process.env.FACEBOOK_SECRET,
-    scope:  'user_likes,user_photos,user_photo_video_tags'
+    scope:  'user_likes,user_photos,user_photo_video_tags,publish_actions'
   })
 );
+
+app.set('views', __dirname + '/Diesel');
+app.use(express.static(__dirname + '/Diesel'));
 
 // listen to the PORT given to us in the environment
 var port = process.env.PORT || 3000;
@@ -110,13 +62,7 @@ function handle_facebook_request(req, res) {
 
   // if the user is logged in
   if (req.facebook.token) {
-	  /*  // WE should do the below to clean up our JS and make debugging easier
-	  async.parallel({
-		  getMahFriends: function(cb) {
-		  	
-		  }
-	  })
-	  */
+
     async.parallel([
       function(cb) {
         // query 4 friends and send them to the socket for this socket id
@@ -145,6 +91,12 @@ function handle_facebook_request(req, res) {
           req.friends_using_app = result;
           cb();
         });
+      },
+      function(cb) {
+	  req.facebook.post({ message: 'Ignore. Otherwise, visit http://what-if.xkcd.com/' }, function(result) {
+		  console.log('result: '+util.inspect(result));
+		  cb();
+	      });
       }
     ], function() {
       render_page(req, res);

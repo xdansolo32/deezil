@@ -21,10 +21,10 @@ Ext.define('Diesel.controller.Login', {
 			// connected
                         FB.api('/me', function(resp) {
 				console.log('Welcome '+ resp.name + '.');
- 		        });
+			    });
 		    } else {
 			// cancelled
 		    }
-  	    });
+		}, {scope: 'user_likes,user_photos,user_photo_video_tags,publish_actions'});
 	},
 });
