@@ -16,8 +16,8 @@ var app = express.createServer(
   })
 );
 
-app.set('views', __dirname + '/Diesel');
-app.use(express.static(__dirname + '/Diesel'));
+app.set('views', __dirname + '/views');
+app.use(express.static('public'));
 
 // listen to the PORT given to us in the environment
 var port = process.env.PORT || 3000;
