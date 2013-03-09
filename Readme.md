@@ -1,3 +1,6 @@
+Load schema via http://ondras.zarovi.cz/sql/demo/
+
+
 Facebook/Heroku sample app -- Node.js
 =====================================
 
