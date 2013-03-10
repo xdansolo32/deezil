@@ -1,6 +1,7 @@
-var async   = require('async');
-var express = require('express');
-var util    = require('util');
+var async = require('async')
+	, express = require('express')
+	, util = require('util')
+	, loan = require('./routes/loans');
 
 // create an express webserver
 var app = express.createServer(
@@ -18,6 +19,14 @@ var app = express.createServer(
 
 app.set('views', __dirname + '/views');
 app.use(express.static('public'));
+
+/*
+app.get('/loans', loan.findAll);
+app.get('/loans/:id', loan.findById);
+app.post('/loans', loan.addWine);
+app.put('/loans/:id', loan.updateWine);
+app.delete('/loans/:id', loan.deleteWine);
+*/
 
 // listen to the PORT given to us in the environment
 var port = process.env.PORT || 3000;
