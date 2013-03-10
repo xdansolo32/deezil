@@ -1,7 +1,8 @@
 var async = require('async')
 	, express = require('express')
 	, util = require('util')
-	, loan = require('./routes/loans');
+	, db = require('./routes/db');
+	// , loan = require('./routes/loans');
 
 // create an express webserver
 var app = express.createServer(
